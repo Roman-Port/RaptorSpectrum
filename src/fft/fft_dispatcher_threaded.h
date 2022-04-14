@@ -4,6 +4,7 @@
 #include "fft_dispatcher_base.h"
 #include <mutex>
 #include <thread>
+#include <condition_variable>
 
 #define GENERATOR_THREADED_BUFFERS 2
 

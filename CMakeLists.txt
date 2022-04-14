@@ -5,7 +5,7 @@ project ("raptorspectrum")
 # Create base
 #############################
 
-find_package (fftw3f CONFIG REQUIRED)
+find_package (FFTW3f CONFIG REQUIRED)
 
 set(raptorspectrum-sources "src/fft/fft.h" "src/fft/fft.cpp" "src/fft/fft_dispatcher_threaded.h" "src/fft/fft_dispatcher_threaded.cpp" "include/raptorspectrum.h" "src/fft/fft_dispatcher_base.h" "src/fft/fft_dispatcher_realtime.h" "src/fft/fft_dispatcher_realtime.cpp" "src/fft/fft_dispatcher_base.cpp" "src/client/iclient.h" "src/client/client_impl.h" "src/client/client_impl.cpp"   "src/client/post_process.h" "src/client/post_process.cpp" "src/server/iserver.h" "src/server/server_impl.h" "src/server/server_impl.cpp" "src/server/api.cpp" "src/client/api.cpp")
 
@@ -35,7 +35,10 @@ target_link_libraries(raptorspectrum-static FFTW3::fftw3f)
 # Create examples
 #############################
 
+option(RAPTORSPECTRUM_BUILD_EXAMPLE "Build examples" OFF)
+if (RAPTORSPECTRUM_BUILD_EXAMPLE)
 add_subdirectory(example)
+endif ()
 
 #############################
 # Create installation target

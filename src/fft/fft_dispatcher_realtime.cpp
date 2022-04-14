@@ -1,6 +1,7 @@
 #include "fft_dispatcher_realtime.h"
 #include <algorithm>
 #include <cassert>
+#include <cstring>
 
 template<class IN_T>
 fft_dispatcher_realtime<IN_T>::fft_dispatcher_realtime(fft_dispatcher_handler<IN_T>* handler, int fft_bins) :
@@ -22,7 +23,7 @@ int fft_dispatcher_realtime<IN_T>::push(IN_T* samples, int count)
 	int written = 0;
 	while (count > 0) {
 		//Skip
-		apply_skip(&samples, &count);
+		this->apply_skip(&samples, &count);
 
 		//Determine how much can be written at the moment
 		int writable = std::min(count, bins - use);
@@ -45,7 +46,7 @@ int fft_dispatcher_realtime<IN_T>::push(IN_T* samples, int count)
 			handler->fft_frame_computed(&fft);
 
 			//Reset, keeping the needed samples
-			int keep = reset_skip();
+			int keep = this->reset_skip();
 			assert(keep >= 0 && keep <= fft.bins);
 			use = keep;
 			memcpy(fft.buffer_in, &fft.buffer_in[fft.bins - keep], sizeof(IN_T) * keep); // Move latest samples to the beginning

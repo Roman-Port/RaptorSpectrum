@@ -1,7 +1,7 @@
 #include "fft.h"
 #include <raptorspectrum.h>
 #include <cassert>
-#include <cmath>
+#include <math.h>
 
 template <class IN_T>
 fft_generator<IN_T>::fft_generator(size_t bins) :
@@ -52,7 +52,7 @@ void fft_generator<IN_T>::calculate_power(float* output, size_t output_size) {
 		in_index = wrap_output_index(i);
 		real = buffer_out[in_index][0] * power_normalization;
 		imag = buffer_out[in_index][1] * power_normalization;
-		output[i] = 10.0f * std::log10f(((real * real) + (imag * imag)) + 1e-20);
+		output[i] = 10.0f * log10f(((real * real) + (imag * imag)) + 1e-20);
 	}
 }
 

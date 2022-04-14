@@ -41,7 +41,7 @@ int fft_dispatcher_threaded<IN_T>::push(IN_T* samples, int count)
 	int written = 0;
 	while (count > 0) {
 		//Skip
-		apply_skip(&samples, &count);
+		this->apply_skip(&samples, &count);
 		if (count <= 0)
 			break;
 
@@ -68,7 +68,7 @@ int fft_dispatcher_threaded<IN_T>::push(IN_T* samples, int count)
 			if (active_writer_use == bins) {
 				//Reset state, transferring samples to keep into the next buffer
 				int nextWriter = (active_writer + 1) % GENERATOR_THREADED_BUFFERS;
-				int keep = reset_skip();
+				int keep = this->reset_skip();
 				assert(keep >= 0 && keep <= bins);
 				active_writer_use = keep;
 				memcpy(buffers[nextWriter].buffer_in, &buffers[active_writer].buffer_in[bins - keep], sizeof(IN_T) * keep); // Move latest samples to the beginning

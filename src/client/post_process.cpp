@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cassert>
 #include <algorithm>
+#include <cstring>
 
 template<class IN_T>
 post_processor<IN_T>::post_processor() :
@@ -32,38 +33,6 @@ post_processor<IN_T>::~post_processor()
         free(output_buffer);
         output_buffer = NULL;
     }
-}
-
-/*void compute_power(const fftwf_complex* input, float* output, int count) {
-    int offset = count / 2;
-    float normalization = 1.0f / count;
-    float real;
-    float imag;
-    int in_index;
-    for (int i = 0; i < count; i++)
-    {
-        in_index = i;// (i + offset) % count;
-        real = input[in_index][0] * normalization;
-        imag = input[in_index][1] * normalization;
-        output[i] = 10.0f * std::log10f(((real * real) + (imag * imag)) + 1e-20);
-    }
-    //TODO: Verify that this doesn't accidentally FLIP the spectrum
-}*/
-
-void compute_power(const fftwf_complex* input, float* output, int count) {
-    int offset = count / 2;
-    float normalization = 1.0f / count;
-    float real;
-    float imag;
-    int in_index;
-    for (int i = 0; i < count; i++)
-    {
-        in_index = (i + offset) % count;
-        real = input[in_index][0] * normalization;
-        imag = input[in_index][1] * normalization;
-        output[i] = 10.0f * std::log10f(((real * real) + (imag * imag)) + 1e-20);
-    }
-    //TODO: Verify that this doesn't accidentally FLIP the spectrum
 }
 
 void resize_power(const float* input, int oldWidth, float* output, int newWidth) {
