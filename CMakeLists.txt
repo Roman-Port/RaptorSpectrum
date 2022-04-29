@@ -18,7 +18,7 @@ target_include_directories(raptorspectrum PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>  
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(raptorspectrum FFTW3::fftw3f)
+target_link_libraries(raptorspectrum PUBLIC FFTW3::fftw3f)
 
 #############################
 # Create static library
@@ -29,7 +29,7 @@ target_include_directories(raptorspectrum-static PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>  
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(raptorspectrum-static FFTW3::fftw3f)
+target_link_libraries(raptorspectrum-static PUBLIC FFTW3::fftw3f)
 
 #############################
 # Create examples

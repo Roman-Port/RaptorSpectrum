@@ -2,7 +2,7 @@
 
 #include "../fft/fft.h"
 #include <fftw3.h>
-#include <mutex>
+#include "../threads.h"
 
 template <class IN_T>
 class post_processor {
